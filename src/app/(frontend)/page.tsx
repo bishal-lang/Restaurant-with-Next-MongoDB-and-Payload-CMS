@@ -7,6 +7,8 @@ import { formatMenuData } from '@/lib/formatMenu'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
+export const revalidate = 0 // disable caching, always fetch fresh
+
 export default async function Page() {
   const payload = await getPayload({ config })
 
