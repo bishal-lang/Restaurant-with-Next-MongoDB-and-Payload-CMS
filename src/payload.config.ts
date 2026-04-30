@@ -42,6 +42,7 @@ export default buildConfig({
       },
       token: 'vercel_blob_rw_NKk89afAAmT6dio1_I1UjqJpyxhq8B4XW2ypmlpcSlTlpje',
       addRandomSuffix: true,
+      clientUploads: true,
     }),
   ],
 })
