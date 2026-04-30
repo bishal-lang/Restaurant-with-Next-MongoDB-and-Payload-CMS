@@ -1,6 +1,8 @@
 import type { Menu } from '@/payload-types'
 
 export function formatMenuData(items: Menu[]) {
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+
   const grouped: Record<string, any[]> = {}
 
   items.forEach((item) => {
@@ -14,9 +16,9 @@ export function formatMenuData(items: Menu[]) {
       price: item.price,
       description: item.description || '',
       image:
-  typeof item.image === 'object' && item.image !== null
-    ? item.image.url
-    : item.image || '/images/hero.webp',
+        typeof item.image === 'object' && item.image !== null
+          ? `${baseUrl}${item.image.url}`
+          : item.image || '/images/hero.webp',
     })
   })
 
