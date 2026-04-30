@@ -20,12 +20,7 @@ export default async function Page() {
     depth: 1,
   })
 
-  const normalizedDocs = result.docs.map((item) => ({
-    ...item,
-    image: item.image || '/images/hero.webp',
-  }))
-
-  const data = formatMenuData(normalizedDocs)
+  const data = formatMenuData(result.docs)
 
   return (
     <>

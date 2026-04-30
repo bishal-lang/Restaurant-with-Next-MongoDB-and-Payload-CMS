@@ -24,8 +24,6 @@ export default async function Page() {
 
   const data = formatMenuData(result.docs)
 
-  console.log('FIRST ITEM IMAGE:', JSON.stringify(result.docs[0]?.image))
-
   return (
     <>
       <Header />

@@ -30,12 +30,7 @@ async function getSearchResults(query: string) {
     depth: 1,
   })
 
-  const normalizedDocs = result.docs.map((item) => ({
-    ...item,
-    image: item.image || '/images/hero.webp',
-  }))
-
-  return formatMenuData(normalizedDocs)
+  return formatMenuData(result.docs)
 }
 
 export default async function SearchPage({
