@@ -12,6 +12,9 @@ import { Menu } from './collections/Menu'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+console.log('BLOB TOKEN EXISTS:', !!process.env.BLOB_READ_WRITE_TOKEN)
+console.log('BLOB TOKEN PREFIX:', process.env.BLOB_READ_WRITE_TOKEN?.substring(0, 20))
+
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
