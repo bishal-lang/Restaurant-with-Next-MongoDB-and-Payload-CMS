@@ -9,6 +9,7 @@ import NoResults from '@/components/ui/noResults'
 
 async function getSearchResults(query: string) {
   const payload = await getPayload({ config })
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
   const result = await payload.find({
     collection: 'menu',
@@ -33,7 +34,7 @@ async function getSearchResults(query: string) {
     ...item,
     image:
       typeof item.image === 'object' && item.image !== null
-        ? `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}${item.image.url}`
+        ? `${baseUrl}${item.image.url}`
         : item.image || '/images/hero.webp',
     description: item.description || '',
   }))
