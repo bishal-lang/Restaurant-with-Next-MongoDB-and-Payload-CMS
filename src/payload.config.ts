@@ -36,11 +36,12 @@ export default buildConfig({
   sharp,
   plugins: [
     vercelBlobStorage({
-      enabled: !!process.env.BLOB_READ_WRITE_TOKEN, // only active when token exists
+      enabled: true,
       collections: {
         media: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      token: 'vercel_blob_rw_NKk89afAAmT6dio1_I1UjqJpyxhq8B4XW2ypmlpcSlTlpje',
+      addRandomSuffix: true,
     }),
   ],
 })
