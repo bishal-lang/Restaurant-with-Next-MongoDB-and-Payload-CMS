@@ -1,11 +1,10 @@
-'use client';
+'use client'
 
-import { Card, Text, Group, Stack, Badge } from '@mantine/core';
-import Image from 'next/image';
-import { MenuItemType } from '@/types/menu';
+import { Card, Text, Group, Stack, Badge } from '@mantine/core'
+import Image from 'next/image'
+import { MenuItemType } from '@/types/menu'
 
 export default function MenuItem({ item }: { item: MenuItemType }) {
-  console.log(item.image)
   return (
     <Card
       padding="lg"
@@ -77,5 +76,5 @@ export default function MenuItem({ item }: { item: MenuItemType }) {
         )}
       </Stack>
     </Card>
-  );
+  )
 }

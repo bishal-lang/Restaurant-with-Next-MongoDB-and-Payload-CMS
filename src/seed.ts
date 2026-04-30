@@ -4,8 +4,6 @@ import fs from 'fs'
 import 'dotenv/config'
 import path from 'path'
 
-console.log('SECRET:', process.env.PAYLOAD_SECRET)
-
 type Category = 'entrees' | 'mains' | 'sides' | 'sauces' | 'desserts'
 
 type MenuItem = {

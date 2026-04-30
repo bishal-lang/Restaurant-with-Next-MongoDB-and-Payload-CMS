@@ -29,13 +29,12 @@ async function getSearchResults(query: string) {
     depth: 1,
   })
 
-
   const normalizedDocs = result.docs.map((item) => ({
     ...item,
     image:
-  typeof item.image === 'object' && item.image !== null
-    ? `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}${item.image.url}`
-    : item.image || '/images/hero.webp',
+      typeof item.image === 'object' && item.image !== null
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}${item.image.url}`
+        : item.image || '/images/hero.webp',
     description: item.description || '',
   }))
 
@@ -64,9 +63,7 @@ export default async function SearchPage({
   }
 
   const data = await getSearchResults(query)
-console.log(JSON.stringify(data, null, 2))
   return (
-    
     <>
       <Header />
       <Container size="lg" py="xl">
@@ -75,12 +72,7 @@ console.log(JSON.stringify(data, null, 2))
         </Title>
 
         <Divider mb="lg" />
-        {data.length > 0 ? (
-          
-          <Menu data={data} />
-        ) : (
-          <NoResults query={query} />
-        )}
+        {data.length > 0 ? <Menu data={data} /> : <NoResults query={query} />}
       </Container>
 
       <Footer />
