@@ -32,11 +32,7 @@ async function getSearchResults(query: string) {
 
   const normalizedDocs = result.docs.map((item) => ({
     ...item,
-    image:
-      typeof item.image === 'object' && item.image !== null
-        ? `${baseUrl}${item.image.url}`
-        : item.image || '/images/hero.webp',
-    description: item.description || '',
+    image: item.image || '/images/hero.webp',
   }))
 
   return formatMenuData(normalizedDocs)

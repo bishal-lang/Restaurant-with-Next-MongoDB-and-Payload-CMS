@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { MenuItemType } from '@/types/menu'
 
 export default function MenuItem({ item }: { item: MenuItemType }) {
+  const imageSrc = item.image && item.image.startsWith('http') ? item.image : '/images/hero.webp'
+
   return (
     <Card
       padding="lg"
@@ -15,34 +17,31 @@ export default function MenuItem({ item }: { item: MenuItemType }) {
       }}
     >
       {/* Image */}
-      {item.image && (
-        <div
+      <div
+        style={{
+          position: 'relative',
+          height: 220,
+          overflow: 'hidden',
+          borderRadius: 12,
+          marginBottom: 12,
+        }}
+      >
+        <Image
+          src={imageSrc}
+          alt={item.name || 'menu item'}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
           style={{
-            position: 'relative',
-            height: 220,
-            overflow: 'hidden',
-            borderRadius: 12,
-            marginBottom: 12,
+            objectFit: 'cover',
+            transition: 'transform 0.6s ease',
           }}
-        >
-          <Image
-            src={item.image}
-            alt={item.name}
-            fill
-            style={{
-              objectFit: 'cover',
-              transition: 'transform 0.6s ease',
-            }}
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
-        </div>
-      )}
+        />
+      </div>
 
       {/* Content */}
       <Stack gap={6}>
-        {/* Title + Price */}
         <Group justify="space-between" align="flex-start">
-          <Text fw={600} size="lg" style={{ letterSpacing: '-0.01em' }}>
+          <Text fw={600} size="lg">
             {item.name}
           </Text>
 
@@ -51,24 +50,14 @@ export default function MenuItem({ item }: { item: MenuItemType }) {
           </Text>
         </Group>
 
-        {/* Description */}
-        <Text size="sm" c="dimmed" style={{ lineHeight: 1.5 }}>
+        <Text size="sm" c="dimmed">
           {item.description}
         </Text>
 
-        {/* Tags */}
         {item.tags && (
           <Group gap={6} mt={4}>
             {item.tags.map((tag) => (
-              <Badge
-                key={tag}
-                variant="outline"
-                size="xs"
-                style={{
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                }}
-              >
+              <Badge key={tag} variant="outline" size="xs">
                 {tag}
               </Badge>
             ))}

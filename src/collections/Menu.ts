@@ -40,8 +40,8 @@ export const Menu: CollectionConfig = {
     },
     {
       name: 'image',
-      type: 'upload',
-      relationTo: 'media',
+      type: 'upload',        // ← CHANGED from 'text'
+      relationTo: 'media',   // ← points to Media collection
     },
   ],
 }

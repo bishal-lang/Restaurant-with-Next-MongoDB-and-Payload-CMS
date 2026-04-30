@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { Title, Text, Stack } from '@mantine/core';
-import Image from 'next/image';
+import { Title, Text, Stack } from '@mantine/core'
+import Image from 'next/image'
 
 export default function Hero() {
   return (
@@ -9,10 +9,11 @@ export default function Hero() {
       {/* Background Image */}
       <Image
         src="/images/hero.webp"
-        alt="Hero"
+        alt="Hero background"
         fill
-        style={{ objectFit: 'cover' }}
         priority
+        sizes="100vw"
+        style={{ objectFit: 'cover' }}
       />
 
       {/* Overlay */}
@@ -27,10 +28,8 @@ export default function Hero() {
         }}
       >
         <Title order={1}>The Summer Collection</Title>
-        <Text tt="uppercase">
-          A sensory journey through seasonal ingredients
-        </Text>
+        <Text tt="uppercase">A sensory journey through seasonal ingredients</Text>
       </Stack>
     </div>
-  );
+  )
 }

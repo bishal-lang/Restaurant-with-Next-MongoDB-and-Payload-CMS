@@ -22,11 +22,7 @@ export default async function MainsPage() {
 
   const normalizedDocs = result.docs.map((item) => ({
     ...item,
-    image:
-      typeof item.image === 'object' && item.image !== null
-        ? `${process.env.NEXT_PUBLIC_SERVER_URL}${item.image.url}`
-        : item.image || '/images/hero.webp',
-    description: item.description || '',
+    image: item.image || '/images/hero.webp',
   }))
 
   const data = formatMenuData(normalizedDocs)

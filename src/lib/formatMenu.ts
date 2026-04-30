@@ -1,8 +1,6 @@
-import type { Menu } from '@/payload-types'
+import type { Menu, Media } from '@/payload-types'
 
 export function formatMenuData(items: Menu[]) {
-  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-
   const grouped: Record<string, any[]> = {}
 
   items.forEach((item) => {
@@ -10,15 +8,27 @@ export function formatMenuData(items: Menu[]) {
       grouped[item.category] = []
     }
 
+    const imageObj = item.image
+    let imageSrc = '/images/hero.webp'
+    let altText = item.name
+
+    if (imageObj && typeof imageObj === 'object') {
+      const media = imageObj as Media
+      if (media.url) {          // handles string | null | undefined safely
+        imageSrc = media.url
+      }
+      if (media.alt) {
+        altText = media.alt
+      }
+    }
+
     grouped[item.category].push({
       id: String(item.id),
       name: item.name,
       price: item.price,
       description: item.description || '',
-      image:
-        typeof item.image === 'object' && item.image !== null
-          ? `${baseUrl}${item.image.url}`
-          : item.image || '/images/hero.webp',
+      image: imageSrc,
+      alt: altText,
     })
   })
 
