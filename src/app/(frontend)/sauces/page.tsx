@@ -19,7 +19,7 @@ export default async function Page() {
       <Container size="lg" py="xl">
         <Menu data={data} />
       </Container>  
-
+    
       <Footer />
     </>
   );

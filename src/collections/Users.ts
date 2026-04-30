@@ -9,9 +9,17 @@ export const Users: CollectionConfig = {
 
   auth: true,
 
+  access: {
+    admin: ({ req: { user } }) => {
+      return user?.role === 'admin'
+    },
+    create: () => true,
+    update: ({ req: { user } }) => user?.role === 'admin',
+  },
+
   fields: [
     {
-      name: 'full name',
+      name: 'fullName', // ✅ fixed
       type: 'text',
       required: true,
     },
@@ -42,14 +50,11 @@ export const Users: CollectionConfig = {
       name: 'phone',
       type: 'text',
       required: true,
-
       validate: (value: string | null | undefined) => {
         if (!value) return 'Phone number is required'
 
-        // Remove spaces/dashes for validation
         const cleaned = value.replace(/\D/g, '')
 
-        // Example: 10–15 digits (international safe range)
         if (cleaned.length < 10 || cleaned.length > 15) {
           return 'Enter a valid phone number'
         }

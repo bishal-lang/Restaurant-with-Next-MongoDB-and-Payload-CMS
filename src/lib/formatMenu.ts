@@ -9,7 +9,7 @@ export function formatMenuData(items: Menu[]) {
     }
 
     grouped[item.category].push({
-      id: item.id,
+      id: String(item.id),
       name: item.name,
       price: item.price,
       description: item.description || '',

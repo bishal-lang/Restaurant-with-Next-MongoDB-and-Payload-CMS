@@ -125,7 +125,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
-  'full name': string;
+  fullName: string;
   gender: 'male' | 'female' | 'others';
   role: 'admin' | 'user';
   phone: string;
@@ -265,7 +265,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  'full name'?: T;
+  fullName?: T;
   gender?: T;
   role?: T;
   phone?: T;

@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
         pathname: '/api/media/file/**',
       },
     ],
-    unoptimized: true,
+    unoptimized: true,  
     localPatterns: [  
       { 
         pathname: '/images/**',
