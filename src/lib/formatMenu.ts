@@ -17,7 +17,9 @@ export function formatMenuData(items: Menu[]) {
     if (imageObj && typeof imageObj === 'object') {
       const media = imageObj as Media
       if (media.url) {
-        imageSrc = media.url
+        imageSrc = media.url.startsWith('http')
+          ? media.url
+          : `https://restaurant-with-next-mongo-db-and-p.vercel.app${media.url}`
       }
       if (media.alt) {
         altText = media.alt

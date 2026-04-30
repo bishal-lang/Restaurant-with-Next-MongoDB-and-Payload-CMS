@@ -5,7 +5,10 @@ import Image from 'next/image'
 import { MenuItemType } from '@/types/menu'
 
 export default function MenuItem({ item }: { item: MenuItemType }) {
-  const imageSrc = item.image && item.image.startsWith('http') ? item.image : '/images/hero.webp'
+  const imageSrc =
+    item.image && (item.image.startsWith('http') || item.image.startsWith('/'))
+      ? item.image
+      : '/images/hero.webp'
 
   return (
     <Card
