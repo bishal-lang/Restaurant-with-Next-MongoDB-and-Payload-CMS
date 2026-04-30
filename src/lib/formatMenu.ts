@@ -4,42 +4,38 @@ export function formatMenuData(items: Menu[]) {
   const grouped: Record<string, any[]> = {}
 
   items.forEach((item) => {
-    console.log('=== MENU ITEM ===', item.name)
-    console.log('image field:', JSON.stringify(item.image))
+    console.log('ITEM:', item.name, '| image:', JSON.stringify(item.image))
 
-    items.forEach((item) => {
-      if (!grouped[item.category]) {
-        grouped[item.category] = []
+    if (!grouped[item.category]) {
+      grouped[item.category] = []
+    }
+
+    const imageObj = item.image
+    let imageSrc = '/images/hero.webp'
+    let altText = item.name
+
+    if (imageObj && typeof imageObj === 'object') {
+      const media = imageObj as Media
+      if (media.url) {
+        imageSrc = media.url
       }
-
-      const imageObj = item.image
-      let imageSrc = '/images/hero.webp'
-      let altText = item.name
-
-      if (imageObj && typeof imageObj === 'object') {
-        const media = imageObj as Media
-        if (media.url) {
-          // handles string | null | undefined safely
-          imageSrc = media.url
-        }
-        if (media.alt) {
-          altText = media.alt
-        }
+      if (media.alt) {
+        altText = media.alt
       }
+    }
 
-      grouped[item.category].push({
-        id: String(item.id),
-        name: item.name,
-        price: item.price,
-        description: item.description || '',
-        image: imageSrc,
-        alt: altText,
-      })
+    grouped[item.category].push({
+      id: String(item.id),
+      name: item.name,
+      price: item.price,
+      description: item.description || '',
+      image: imageSrc,
+      alt: altText,
     })
-
-    return Object.entries(grouped).map(([category, items]) => ({
-      category,
-      items,
-    }))
   })
+
+  return Object.entries(grouped).map(([category, items]) => ({
+    category,
+    items,
+  }))
 }
