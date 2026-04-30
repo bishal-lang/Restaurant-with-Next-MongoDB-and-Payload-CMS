@@ -10,6 +10,7 @@ import config from '@payload-config'
 
 export default async function Page() {
   const payload = await getPayload({ config })
+
   const dessertsCategory = menu.find((category) => category.category.toLowerCase() === 'desserts')
 
   const result = await payload.find({
@@ -21,7 +22,18 @@ export default async function Page() {
     },
     depth: 1,
   })
-  const data = formatMenuData(result.docs)
+
+  const normalizedDocs = result.docs.map((item) => ({
+    ...item,
+    image:
+      typeof item.image === 'object' && item.image !== null
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL}${item.image.url}`
+        : item.image || '/images/hero.webp',
+    description: item.description || '',
+  }))
+
+  const data = formatMenuData(normalizedDocs)
+
   return (
     <>
       <Header />

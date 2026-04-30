@@ -20,7 +20,16 @@ export default async function MainsPage() {
     depth: 1,
   })
 
-  const data = formatMenuData(result.docs)
+  const normalizedDocs = result.docs.map((item) => ({
+    ...item,
+    image:
+      typeof item.image === 'object' && item.image !== null
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL}${item.image.url}`
+        : item.image || '/images/hero.webp',
+    description: item.description || '',
+  }))
+
+  const data = formatMenuData(normalizedDocs)
 
   return (
     <>
