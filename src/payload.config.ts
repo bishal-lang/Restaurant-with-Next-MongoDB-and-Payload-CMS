@@ -17,7 +17,6 @@ console.log('BLOB TOKEN:', process.env.BLOB_READ_WRITE_TOKEN?.substring(0, 25))
 console.log('NODE_ENV:', process.env.NODE_ENV)
 
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
     user: Users.slug,
     importMap: {
