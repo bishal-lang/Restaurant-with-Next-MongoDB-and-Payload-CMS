@@ -2,7 +2,21 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Paper, Title, TextInput, PasswordInput, Button, Stack, Text, Select } from '@mantine/core'
+import {
+  Container,
+  Paper,
+  Title,
+  Text,
+  TextInput,
+  PasswordInput,
+  Textarea,
+  Button,
+  Stack,
+  Grid,
+  Radio,
+  Group,
+  Checkbox,
+} from '@mantine/core'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -38,7 +52,7 @@ export default function RegisterPage() {
           gender: form.gender,
           phone: form.phone,
           address: form.address,
-          role: 'user', // makes the default choice user for security
+          role: 'user',
         }),
       })
 
@@ -50,7 +64,6 @@ export default function RegisterPage() {
         return
       }
 
-      // ✅ Optional: auto login after register
       await fetch('/api/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -69,68 +82,104 @@ export default function RegisterPage() {
   }
 
   return (
-    <Paper shadow="md" p="xl" radius="md" style={{ maxWidth: 450, margin: '60px auto' }}>
-      <Title order={2} mb="lg">
-        Register
-      </Title>
+    <Container size="sm" py="xl" style={{ minHeight: '100vh' }}>
+      <Paper shadow="md" p="xl" radius="sm" withBorder>
+        {/* Header */}
+        <Stack align="center" mb="xl">
+          <Title order={2}>Create Account</Title>
+          <Text c="dimmed">Join our community of culinary enthusiasts.</Text>
+        </Stack>
 
-      <Stack>
-        <TextInput
-          label="Full Name"
-          value={form.fullName}
-          onChange={(e) => handleChange('fullName', e.currentTarget.value)}
-          required
-        />
+        {/* Form */}
+        <Stack gap="lg">
+          {/* Full Name */}
+          <TextInput
+            label="Full Name"
+            placeholder="Evelyn Thorne"
+            value={form.fullName}
+            onChange={(e) => handleChange('fullName', e.currentTarget.value)}
+            required
+          />
 
-        <TextInput
-          label="Email"
-          value={form.email}
-          onChange={(e) => handleChange('email', e.currentTarget.value)}
-          required
-        />
+          {/* Email */}
+          <TextInput
+            label="Email Address"
+            placeholder="e.thorne@example.com"
+            value={form.email}
+            onChange={(e) => handleChange('email', e.currentTarget.value)}
+            required
+          />
 
-        <PasswordInput
-          label="Password"
-          value={form.password}
-          onChange={(e) => handleChange('password', e.currentTarget.value)}
-          required
-        />
+          {/* Password + Phone */}
+          <Grid>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <PasswordInput
+                label="Password"
+                placeholder="••••••••"
+                value={form.password}
+                onChange={(e) => handleChange('password', e.currentTarget.value)}
+                required
+              />
+            </Grid.Col>
 
-        <Select
-          label="Gender"
-          data={[
-            { label: 'Male', value: 'male' },
-            { label: 'Female', value: 'female' },
-            { label: 'Others', value: 'others' },
-          ]}
-          value={form.gender}
-          onChange={(value) => handleChange('gender', value || '')}
-          required
-        />
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <TextInput
+                label="Phone Number"
+                placeholder="+1 (555) 000-0000"
+                value={form.phone}
+                onChange={(e) => handleChange('phone', e.currentTarget.value)}
+                required
+              />
+            </Grid.Col>
+          </Grid>
 
-        <TextInput
-          label="Phone"
-          value={form.phone}
-          onChange={(e) => handleChange('phone', e.currentTarget.value)}
-          required
-        />
+          {/* Gender */}
+          <Radio.Group
+            label="Gender"
+            value={form.gender}
+            onChange={(value) => handleChange('gender', value)}
+            required
+          >
+            <Group mt="xs">
+              <Radio value="female" label="Female" />
+              <Radio value="male" label="Male" />
+              <Radio value="other" label="Other" />
+            </Group>
+          </Radio.Group>
 
-        <TextInput
-          label="Address"
-          value={form.address}
-          onChange={(e) => handleChange('address', e.currentTarget.value)}
-        />
+          {/* Address */}
+          <Textarea
+            label="Delivery Address"
+            placeholder="Enter your street address, city, and zip code..."
+            minRows={3}
+            value={form.address}
+            onChange={(e) => handleChange('address', e.currentTarget.value)}
+          />
 
-        {error && (
-          <Text c="red" size="sm">
-            {error}
+          {/* Terms (UI only, no logic added) */}
+          <Checkbox label="I agree to the Terms of Service and Privacy Policy" />
+
+          {/* Error */}
+          {error && (
+            <Text c="red" size="sm">
+              {error}
+            </Text>
+          )}
+
+          {/* Submit */}
+          <Button fullWidth mt="md" onClick={handleRegister} loading={loading}>
+            Create Account
+          </Button>
+
+          {/* Login Link */}
+          <Text ta="center" size="sm">
+            Already have an account?{' '}
+            <a href="/login" style={{ textDecoration: 'underline' }}>
+              Sign In
+            </a>
           </Text>
-        )}
-
-        <Button onClick={handleRegister} loading={loading}>
-          Register
-        </Button>
-      </Stack>
-    </Paper>
+        </Stack>
+      </Paper>
+    </Container>
   )
 }

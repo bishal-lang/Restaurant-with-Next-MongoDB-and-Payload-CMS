@@ -2,7 +2,18 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Paper, Title, TextInput, PasswordInput, Button, Stack, Text } from '@mantine/core'
+import {
+  Container,
+  Paper,
+  Title,
+  Text,
+  TextInput,
+  PasswordInput,
+  Button,
+  Stack,
+  Checkbox,
+  Group,
+} from '@mantine/core'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -11,6 +22,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [remember, setRemember] = useState(false) // UI only
 
   const handleLogin = async () => {
     setLoading(true)
@@ -33,48 +45,90 @@ export default function LoginPage() {
 
       router.push('/')
       router.refresh()
-    } catch (err) {
+    } catch {
       setError('Something went wrong')
       setLoading(false)
     }
   }
 
   return (
-    <Paper shadow="md" p="xl" radius="md" style={{ maxWidth: 400, margin: '80px auto' }}>
-      <Title order={2} mb="lg">
-        Login
-      </Title>
+    <Container size="xs" py="xl" style={{ minHeight: '100vh' }}>
+      <Stack justify="center" style={{ minHeight: '80vh' }}>
+        <Paper shadow="md" p="xl" radius="md" withBorder>
+          {/* Header */}
+          <Stack align="center" mb="xl">
+            <Title order={2}>Sign In</Title>
+            <Text c="dimmed" size="sm">
+              Return to your culinary journey
+            </Text>
+          </Stack>
 
-      <Stack>
-        <TextInput
-          label="Email"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-          required
-        />
+          {/* Form */}
+          <Stack gap="lg">
+            {/* Email */}
+            <TextInput
+              label="Email Address"
+              placeholder="gourmet@epicurean.com"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+              required
+            />
 
-        <PasswordInput
-          label="Password"
-          placeholder="Your password"
-          value={password}
-          onChange={(e) => setPassword(e.currentTarget.value)}
-          required
-        />
+            {/* Password */}
+            <Stack gap={4}>
+              <Group justify="space-between">
+                <Text size="sm" fw={500}>
+                  Password
+                </Text>
+                <a href="#" style={{ fontSize: 12 }}>
+                  Forgot Password?
+                </a>
+              </Group>
 
-        {error && (
-          <Text c="red" size="sm">
-            {error}
-          </Text>
-        )}
+              <PasswordInput
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.currentTarget.value)}
+                required
+              />
+            </Stack>
 
-        <Button onClick={handleLogin} loading={loading}>
-          Login
-        </Button>
+            {/* Remember */}
+            <Checkbox
+              label="Remember me for 30 days"
+              checked={remember}
+              onChange={(e) => setRemember(e.currentTarget.checked)}
+            />
+
+            {/* Error */}
+            {error && (
+              <Text c="red" size="sm">
+                {error}
+              </Text>
+            )}
+
+            {/* Submit */}
+            <Button fullWidth onClick={handleLogin} loading={loading}>
+              Access Account
+            </Button>
+          </Stack>
+
+          {/* Bottom */}
+          <Stack align="center" mt="xl" pt="md">
+            <Text size="sm" c="dimmed">
+              New to the experience?{' '}
+              <a href="/register" style={{ fontWeight: 600 }}>
+                Create an Account
+              </a>
+            </Text>
+          </Stack>
+        </Paper>
+
+        {/* Quote */}
+        <Text ta="center" size="xs" c="dimmed" fs="italic">
+          "The secret to a great dish is the quality of the ingredients."
+        </Text>
       </Stack>
-      <Text size="sm">
-        Don’t have an account? <a href="/register">Register</a>
-      </Text>
-    </Paper>
+    </Container>
   )
 }
