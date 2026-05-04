@@ -18,6 +18,7 @@ export default async function Page() {
       },
     },
     depth: 1,
+    limit: 0,
   })
 
   const data = formatMenuData(result.docs)

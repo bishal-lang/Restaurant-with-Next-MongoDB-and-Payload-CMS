@@ -2,16 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import {
-  Paper,
-  Title,
-  TextInput,
-  PasswordInput,
-  Button,
-  Stack,
-  Text,
-  Select,
-} from '@mantine/core'
+import { Paper, Title, TextInput, PasswordInput, Button, Stack, Text, Select } from '@mantine/core'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -47,7 +38,7 @@ export default function RegisterPage() {
           gender: form.gender,
           phone: form.phone,
           address: form.address,
-          role: 'user', // 👈 force normal user
+          role: 'user', // makes the default choice user for security
         }),
       })
 
@@ -78,12 +69,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <Paper
-      shadow="md"
-      p="xl"
-      radius="md"
-      style={{ maxWidth: 450, margin: '60px auto' }}
-    >
+    <Paper shadow="md" p="xl" radius="md" style={{ maxWidth: 450, margin: '60px auto' }}>
       <Title order={2} mb="lg">
         Register
       </Title>

@@ -2,15 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import {
-  Paper,
-  Title,
-  TextInput,
-  PasswordInput,
-  Button,
-  Stack,
-  Text,
-} from '@mantine/core'
+import { Paper, Title, TextInput, PasswordInput, Button, Stack, Text } from '@mantine/core'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -39,9 +31,8 @@ export default function LoginPage() {
         return
       }
 
-      // ✅ Payload sets cookie automatically
-      router.push('/')       // redirect after login
-      router.refresh()       // refresh to update header/user state
+      router.push('/')
+      router.refresh()
     } catch (err) {
       setError('Something went wrong')
       setLoading(false)
@@ -49,12 +40,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Paper
-      shadow="md"
-      p="xl"
-      radius="md"
-      style={{ maxWidth: 400, margin: '80px auto' }}
-    >
+    <Paper shadow="md" p="xl" radius="md" style={{ maxWidth: 400, margin: '80px auto' }}>
       <Title order={2} mb="lg">
         Login
       </Title>
@@ -87,8 +73,8 @@ export default function LoginPage() {
         </Button>
       </Stack>
       <Text size="sm">
-  Don’t have an account? <a href="/register">Register</a>
-</Text>
+        Don’t have an account? <a href="/register">Register</a>
+      </Text>
     </Paper>
   )
 }

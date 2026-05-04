@@ -28,6 +28,7 @@ async function getSearchResults(query: string) {
       ],
     },
     depth: 1,
+    limit: 0,
   })
 
   return formatMenuData(result.docs)
